@@ -1,5 +1,5 @@
 * {
-  /*box-sizing: border-box;*/
+  box-sizing: border-box;
 }
 
 no-float {
@@ -20,14 +20,14 @@ section {
 
 .container-static {
 	width: 1368px;
-	height: 400px;
+	height: 430px;
 	padding: 15px;
 	border: 1px solid black;
 }
 
 .container-responsiv {   /* for a resolution:  1920 x 1080: */
         width: 71vw;     /* 1368/1920 = 0.7125              */
-        height: 37.03vh; /* 400/1080 = 0.37037037           */
+        height: 39.81vh; /* 430/1080 = 0.398148148          */
         padding: 15px;
         border: 1px solid black;
 }
