@@ -1,0 +1,120 @@
+#d1, #d2, #d3, #d4, #d5, #d6 {
+  border: 1px solid blue;;
+}
+
+.blue {
+  color:blue;
+}
+
+#d3, #d4 {
+  display: inline;
+}
+
+#d5, #d6 {
+  display: inline-block;
+  height: 3em;
+  width: 45%;
+}
+
+.col1, .col2 {
+  display: inline-block;
+  border: 0px;
+  height: 3em;
+  width: 50%; 
+  color: red;
+}
+
+.col1 {
+  background-color: yellow;
+}
+
+.col2 {
+  background-color: pink;
+}
+
+.d01, .d02, .d03, .d04, .d001, .d002, .d003, .d004 {
+  height: 5em; 
+  width: 5em;
+}
+
+.d01, .d001 {
+  background-color: red;
+}
+
+.d02, .d002 {
+  background-color: blue;
+}
+
+.d03, .d003 {
+  background-color: yellow;
+}
+
+.d04, .d004 {
+  background-color: green;
+}
+
+.d001, .d002, .d003, .d004 {
+  display: inline-block;
+}
+
+.left {
+  float:left;
+}
+
+.no-float {
+  clear: both;
+}
+
+/* clearfix */
+/* instead of <div style="clear: both;"></div>*/
+/*
+.d02::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+*/
+
+#div1 {
+  border: 3px solid green;
+  text-align: center;
+}
+
+#div2 {
+  position: relative;
+  border: 3px solid green;
+  text-align: center;
+  left: 50px;
+  text-align: center;
+}
+
+#div3 {
+  position: fixed;
+  border: 3px solid green;
+  bottom: 0;
+  right: 0;
+  width: 300px;  
+  background-color: red;
+  text-align: center;
+}
+
+div.relative {
+  position: relative;
+  border: 3px solid green;
+  height: 300px;
+  width: 300px;
+  margin: 0 auto; /* center */
+}
+
+div.absolute {
+  position: absolute;
+  border: 3px solid green;
+  top: 50px;
+  right: 50px;
+  width: 100px;  
+  height: 100px;
+  text-align: center;
+}
+
+

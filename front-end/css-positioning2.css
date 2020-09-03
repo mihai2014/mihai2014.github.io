@@ -1,0 +1,67 @@
+.container {
+  height: 200px;
+  width: 200px;
+}
+
+.square1 {
+  background-color: red;
+  height:50%;
+  width:50%;
+  float: left;
+}  
+
+.square2 {
+  background-color: yellow;
+  height:50%;
+  width:50%;
+  float: left;
+}  
+
+.square3 {
+  background-color: blue;
+  height:50%;
+  width:50%;  
+  float: left;
+}  
+
+.square4 {
+  background-color: green;
+  height:50%;
+  width:50%;
+  float:left;
+}  
+
+.no-float {
+  clear: both;
+}
+
+
+.square01 {
+  background-color: red;
+  height:50%;
+  width:50%;
+  display: inline-block;
+}  
+
+.square02 {
+  background-color: yellow;
+  height:50%;
+  width:50%;
+  display: inline-block;
+}  
+
+.square03 {
+  background-color: blue;
+  height:50%;
+  width:50%;  
+  display: inline-block;
+}  
+
+.square04 {
+  background-color: green;
+  height:50%;
+  width:50%;
+  display: inline-block;
+}  
+
+
