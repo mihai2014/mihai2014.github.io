@@ -1,0 +1,62 @@
+* {
+  box-sizing: border-box;
+}
+
+
+h1, figcaption {
+  font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: rgba(0,0,0,.8);
+  font-size: 36px;
+}
+
+figcaption {
+  font-size: 11px;
+}
+
+img {
+  height: auto;
+  width: 100%;
+}
+
+/* no need if reset css */
+figure {
+  margin: 0;
+}
+
+/* no need if reset css */
+body {
+  margin: 0;
+}
+
+article {
+  /* center */	
+  margin-left: auto;
+  margin-right: auto;
+  /*      top/bottom right/left         */
+  /* margin: 0 auto; */  /* prescurtare */ 
+  max-width: 700px;
+  padding: 10px;
+}
+
+p {
+  color: rgba(0,0,0,.8);
+  font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+  font-size: 21px;
+  letter-spacing: -.003em; /* 21 px * -0.003 = -0.063 px */
+  line-height: 1.58;
+}
+
+a {
+  color: rgba(0,0,0,.8);
+}
+
+a:hover {
+  color: rgba(153, 153, 153, 1);
+}
+
+
+
