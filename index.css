@@ -1,0 +1,8 @@
+img {
+  border: 1px solid blue;
+}	
+
+img:hover {
+  border: 3px solid red;
+  /*transition: all 0.5s ease-in-out;*/
+}

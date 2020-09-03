@@ -1,0 +1,97 @@
+/* Resetare CSS */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center; /* apply to children: profile-card */
+  align-items: center;
+  height: 100vh; /* for vertical centering profile-card */
+  /*
+  background-image: url('http://i.imgur.com/9kh3G8L.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  */
+  background: url('jeremy-thomas-E0AHdsENmDg-unsplash.jpg') no-repeat center center fixed;
+  background-size: cover;  
+}
+
+.profile-card {
+  background-color: hsla(60, 100%, 50%, .4);
+  width: 480px;
+  max-width: calc(100vw - 10px);   /*?*/
+
+  background-color: hsla(0, 0%, 100%, .5);
+  border-radius: 4px;
+  box-shadow: hsla(0, 0%, 0%, .8) 10px 10px 80px;  
+}
+
+.head {
+  /*background-color: pink;*/
+}
+
+.content {
+  /*background-color: rgb(102, 255, 179);*/
+}
+
+.about,  .links {
+  /*background-color: rgba(0, 0, 255, 0.3);*/
+}
+
+.head, .links {
+  text-align: center;
+}
+
+.head, .content {
+  width: 90%;
+  /* valorile sunt pentru sus, dreapta, jos, stânga */
+  /* margin: 0 auto 0 auto */
+  /*  sus și jos, dreapta și stânga) */
+  margin: 0 auto;
+  margin-top: -60px;
+}
+
+img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  padding: 1px;
+  background-color: #666; 
+  filter: grayscale(50%); 
+}
+
+img:hover {
+  transform: scale(1.1);
+  transition: all 0.5s ease-in-out;
+  filter: grayscale(20%);
+}
+
+.profile-image {
+  /*margin-top: -60px;*/
+}
+
+/* Linkurile de contact */
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: inline;
+}
+
+
+.head, .about {
+  margin-bottom: 10%;
+}
+
+.content {
+  padding: 5% 10%;
+  border-top: 1px solid hsla(0, 0%, 30%, .8);
+}
