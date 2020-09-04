@@ -1,0 +1,22 @@
+figure {
+	height: 0;
+	padding-bottom: 56.25%; /* 16:9 aspect ratio */
+	position: relative;
+}
+
+figure iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+
+/*
+    Prima parte importantă este proprietatea padding-bottom. Aceasta creează spațiu pentru mediul de extindere, spunându-i browserului că înălțimea containerului imaginii trebuie să fie 56.25% din lățimea sa. Aceasta se traduce în raportul original al aspectului de 16:9 și asigură că, conținutul nostru încorporat nu este decupat.
+    position: relative; este acolo pentru a putea poziționa iframe-ul în relație cu figura.
+    height: 0; este necesar din cauză la Internet Explorer 5 și 6.
+    Restul codului ar trebui să fie destul de simplu de înțeles. Iframe-ul este poziționat ca absolut și are o înălțime și o lățime de 100% pentru a umple containerul lui, creând astfel flexibilitate.
+
+    Cum am obținut valoarea padding-ului părții de jos? Doar am împărțit 9 la 16 și am înmulțit rezultatul cu 100.
+*/
