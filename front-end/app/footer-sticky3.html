@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="footer-sticky3">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Sticky footer 3</title>
+  <style>
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  margin-bottom: 50px;
+}
+
+.footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 50px;
+}
+
+/*==== HELPER STYLES ====*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #cfcfcf;
+}
+
+.content,
+.footer {
+  padding: 10px;
+  color: rgba(255,255,255, .9);
+  font-family: monospace;
+  font-size: 1.125rem;
+}
+
+.content {
+  background: #ae001d;
+  height: 200px;
+}
+
+.footer {
+  background: #193a6a;
+}
+
+  </style>		
+</head>
+<body>
+
+  <main class="content">
+    <span>content</span>
+    <p><a href="https://jsbin.com/soguhey/edit?html,css,output"></a>Sticky footer 3</p>
+    <pre>
+Avantajul acestei metode este că elimină nevoia de a avea un div ca wrapper, prin utilizarea elementului html drept container poziționat. Altfel e identic. La fel ca opțiunea A, funcționează doar cu înălțimi fixe ale subsolurilor.
+
+Notă: Pentru a rezolva problema lipirii și a păstra subsolul responsiv, vei avea nevoie de Flexbox. Flexbox este un instrument atât de grozav, încât își merită propriul proiect în curriculumul CodeBerry. :)    
+    </pre>
+  </main>
+  <footer class="footer">
+    <span>footer</span>
+  </footer>  
+  
+</body>
+</html>

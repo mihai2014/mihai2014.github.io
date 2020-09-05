@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="footer-sticky1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Sticky footer 1</title>
+  <style>
+
+
+.wrapper {
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 50px; /* Equals height of the footer and pushes away the content in the case they would touch. */
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 50px;
+}
+
+/*==== HELPER STYLES ====*/
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #cfcfcf;
+}
+
+.content,
+.footer {
+  padding: 10px;
+  color: rgba(255,255,255, .9);
+  font-family: monospace;
+  font-size: 1.125rem;
+}
+
+.content {
+  background: #ae001d;
+  height: 200px;
+}
+
+.footer {
+  background: #193a6a;
+}
+
+
+  </style>		
+</head>
+
+  <div class="wrapper">
+    <main class="content">
+      <span>content</span>
+      <p><a href="https://jsbin.com/siveken/edit?html,css">Sticky footer 1</a></p>
+      <pre>
+Soluția poziționării absolute      
+Împachetează întregul conținut (inclusiv subsolul) într-un div.
+Modifică wrapper-ul, atribuie-i o înălțime minimă de 100vh și stabilește-i position: relative;.
+Modifică subsolul, stabilește-i poziția la absolute și mută-l în partea de jos a wrapper-ului.
+Atribuie-i elementului wrapper un padding în partea de jos, echivalent cu înălțimea subsolului, astfel încât conținutul să nu ajungă să fie ascuns sub subsol.
+      </pre>
+    </main>
+    <footer class="footer">
+      <span>footer</span>
+    </footer>
+  </div>  
+  
+</body>
+</html>

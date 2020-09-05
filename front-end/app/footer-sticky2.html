@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Sticky footer 2</title>
+
+  <style>
+
+.content {
+  min-height: calc(100vh - 50px);
+}
+
+.footer {
+  height: 50px;
+}
+
+/*==== HELPER STYLES ====*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #cfcfcf;
+}
+
+.content,
+.footer {
+  padding: 10px;
+  color: rgba(255,255,255, .9);
+  font-family: monospace;
+  font-size: 1.125rem;
+}
+
+.content {
+  background: #ae001d;
+  height: 200px;
+}
+
+.footer {
+  background: #193a6a;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <main class="content">
+    <span>
+      <p>content</p>
+      <p><a href="https://jsbin.com/xopokoj/1/edit?html,css,output"></a>Sticky footer 2</p>
+      <pre>
+Soluția calc()
+Opțiunea B folosește funcția calc() încorporată. Această metodă se bazează pe:
+
+împachetarea tuturor elementelor într-un container cu excepția subsolului,
+setarea unei înălțimi fixe pentru subsol și
+calcularea înălțimii containerului cu conținut ca „înălțime completă a zonei de vizualizare - înălțime subsol”. 
+Elementul de bază al acestei soluții este funcția calc(). Aceasta poate calcula în mod dinamic înălțimea pentru .content prin scăderea înălțimii subsolului din înălțimea totală a zonei de vizualizare. În acest fel, .content va împinge întotdeauna subsolul în partea de jos a zonei de vizualizare.
+
+Totuși, această metodă are aceeași limitare ca și cea anterioară: aceasta funcționează doar dacă subsolul tău are o înălțime fixă. Din nou, nu este ceva capital, dar trebuie să fii conștient de asta.
+      </pre>
+    </span>
+  </main>
+  
+  <footer class="footer">
+    <span>footer</span>
+  </footer>  
+  
+</body>
+</html>
