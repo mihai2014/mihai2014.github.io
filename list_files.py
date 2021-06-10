@@ -56,4 +56,16 @@ def traverse_dir(dir):
 traverse_dir('.')
 print(string)
 
-#ttps://nbviewer.jupyter.org/github/mihai2014/python-data-processing/blob/master
+# opens the file in reading mode
+f1 = open("index.html", mode='r')
+old_file_str = f1.read()
+f1.close()
+
+#replace content between <!--start topics--> and <!--end topics--> with string
+#print(file_str)
+new_file_str = re.sub("^(<!--start topics-->.*<!--end topics-->)$","<!--start topics-->\n" + string  + "\n<!--end topics-->",old_file_str)
+
+# opens the file in writing mode 
+f2 = open("index2.html", mode = 'w')
+f2.write(new_file_str)
+f2.close()
