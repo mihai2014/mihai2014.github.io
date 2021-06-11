@@ -1,0 +1,32 @@
+
+jupyter nbconvert matplotlib/0_polinomials.ipynb --output-dir='/home/mihai/export/matplotlib' --to html 
+jupyter nbconvert matplotlib/tangent1.ipynb --output-dir='/home/mihai/export/matplotlib' --to html 
+jupyter nbconvert ml/backprop1.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/chain_rule.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/circle.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/cross-entropy-loss.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/linear_regression.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/logistic1.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/logistic2.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/logistic3.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/net1.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/net2.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/pytorch1.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/pytorch2.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/pytorch3.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/pytorch4.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/pytorch6.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/pytorch7.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/pytorch8.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/pytorch8_1.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert ml/pytorch8_2.ipynb --output-dir='/home/mihai/export/ml' --to html 
+jupyter nbconvert pandas/pandas_sql1.ipynb --output-dir='/home/mihai/export/pandas' --to html 
+jupyter nbconvert pandas/pandas_sql2.ipynb --output-dir='/home/mihai/export/pandas' --to html 
+cp statistics/central_limit_theorem.html /home/mihai/export/statistics
+jupyter nbconvert statistics/central_limit_theorem.ipynb --output-dir='/home/mihai/export/statistics' --to html 
+jupyter nbconvert statistics/introduction.ipynb --output-dir='/home/mihai/export/statistics' --to html 
+cp statistics/linear_gradient.html /home/mihai/export/statistics
+jupyter nbconvert statistics/linear_gradient.ipynb --output-dir='/home/mihai/export/statistics' --to html 
+jupyter nbconvert statistics/linear_proof.ipynb --output-dir='/home/mihai/export/statistics' --to html 
+cp statistics/linear_regression.html /home/mihai/export/statistics
+jupyter nbconvert statistics/var-covar-std-corr.ipynb --output-dir='/home/mihai/export/statistics' --to html 

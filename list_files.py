@@ -6,6 +6,7 @@ import re
 from names import names
 
 DIR = "/home/mihai/export/"
+HOST_DIR = DIR
 EXPORT = True
 
 string = ""
@@ -14,17 +15,19 @@ def export2html(dir_name, file_path):
     match = re.search(r".html",file_path)
     #html file
     if match:
+        match2 = re.search("/",file_path)
+        #print(match2,file_path)
         #do not copy root html files
-        if(dir_name=="."):
-            cmd=""
+        if(match2):
+            cmd = "cp " + file_path + " " + DIR + dir_name
         else:
-            cmd = "cp " + file_path[1:] + " " + DIR + dir_name[2:]
+            cmd = ""
     #notebook file    
     else:
         #ex:   jupyter nbconvert ml/net1.ipynb --output-dir='/home/mihai/export/ml/'  --to html 
-        cmd = "jupyter nbconvert " + file_path[1:] + " --output-dir='" + DIR + dir_name[2:] +  "' --to html "
+        cmd = "jupyter nbconvert " + file_path + " --output-dir='" + DIR + dir_name +  "' --to html "
     print(cmd)
-    #os.system(cmd)
+    os.system(cmd)
 
 def traverse_dir(dir_name):
 
@@ -48,12 +51,12 @@ def traverse_dir(dir_name):
                 html = re.findall("^(.*).html$",item)
                 ipynb = re.findall("^(.*).ipynb$",item)
 
-                avoid_file = re.findall("^(about_me.html)|(index.html)|(content.html)|(dj.html)$",item)
+                avoid_file = re.findall("^(about_me.html)|(index.html)|(index2.html)|(content.html)|(dj.html)$",item)
 
                 #only html and ipynb files
                 if((html != [] or ipynb != []) and avoid_file == []):
                     if EXPORT:
-                        startStr = DIR
+                        startStr = HOST_DIR
                         #remove startStr
                         fullpath = fullpath[2:]
                     else:    
@@ -70,7 +73,7 @@ def traverse_dir(dir_name):
 
                     relativePath = startStr + fullpath
                     if EXPORT:
-                        export2html(dir_name,fullpath)
+                        export2html(dir_name[2:],fullpath)
                     string += ('<li><a href="%s">%s</a></li>\n' % (relativePath,item))
 
 
