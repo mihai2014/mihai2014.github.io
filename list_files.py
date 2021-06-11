@@ -6,8 +6,8 @@ import re
 from names import names
 
 DIR = "/home/mihai/export/"
-HOST_DIR = DIR
-EXPORT = True
+HOST_DIR = "/book/"
+EXPORT = False
 
 string = ""
 
@@ -74,6 +74,8 @@ def traverse_dir(dir_name):
                     relativePath = startStr + fullpath
                     if EXPORT:
                         export2html(dir_name[2:],fullpath)
+                        relativePath = relativePath.replace(".ipynb",".html")
+                        
                     string += ('<li><a href="%s">%s</a></li>\n' % (relativePath,item))
 
 
