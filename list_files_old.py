@@ -1,44 +1,24 @@
 #generate index.html / topics
 
-import sys
 import os
 import re
 from names import names
 
-DIR = "/home/mihai/export/"
-EXPORT = True
-
 string = ""
 
-def export2html(dir_name, file_path):
-    match = re.search(r".html",file_path)
-    #html file
-    if match:
-        #do not copy root html files
-        if(dir_name=="."):
-            cmd=""
-        else:
-            cmd = "cp " + file_path[1:] + " " + DIR + dir_name[2:]
-    #notebook file    
-    else:
-        #ex:   jupyter nbconvert ml/net1.ipynb --output-dir='/home/mihai/export/ml/'  --to html 
-        cmd = "jupyter nbconvert " + file_path[1:] + " --output-dir='" + DIR + dir_name[2:] +  "' --to html "
-    print(cmd)
-    #os.system(cmd)
-
-def traverse_dir(dir_name):
+def traverse_dir(dir):
 
     global string
     string += '<ul>\n'
 
-    for item in sorted(os.listdir(dir_name)):
-    #for item in filterList(os.listdir(dir_name)):
+    for item in sorted(os.listdir(dir)):
+    #for item in filterList(os.listdir(dir)):
 
         #exclude folders: '.*', 'front-end', '__pycache__'
         avoid_dir = re.findall("^\.(.*)|(front-end)|(__pycache__)$",item)
         if( avoid_dir == []):
 
-            fullpath = os.path.join(dir_name, item)
+            fullpath = os.path.join(dir, item)
 
             if os.path.isdir(fullpath):
                 string += ('<li>%s</li>\n' % item)
@@ -52,15 +32,10 @@ def traverse_dir(dir_name):
 
                 #only html and ipynb files
                 if((html != [] or ipynb != []) and avoid_file == []):
-                    if EXPORT:
-                        startStr = DIR
-                        #remove startStr
-                        fullpath = fullpath[2:]
-                    else:    
-                        #startStr = PWD + "/blog/templates/blog/data"
-                        startStr = "https://nbviewer.jupyter.org/github/mihai2014/mihai2014.github.io/blob/master"
-                        #remove startStr
-                        fullpath = fullpath[1:len(fullpath)]
+                    #startStr = PWD + "/blog/templates/blog/data"
+                    startStr = "https://nbviewer.jupyter.org/github/mihai2014/mihai2014.github.io/blob/master"
+                    #remove startStr
+                    fullpath = fullpath[1:len(fullpath)]
 
                     #rename
                     try:
@@ -69,8 +44,6 @@ def traverse_dir(dir_name):
                         pass
 
                     relativePath = startStr + fullpath
-                    if EXPORT:
-                        export2html(dir_name,fullpath)
                     string += ('<li><a href="%s">%s</a></li>\n' % (relativePath,item))
 
 
@@ -81,12 +54,7 @@ def traverse_dir(dir_name):
     string += '</ul>\n'
 
 traverse_dir('.')
-#print(string)
-if(EXPORT):
-    f = open(DIR + "ai.html", mode = 'w')
-    f.write(string)
-    f.close()
-    sys.exit()    
+print(string)
 
 # opens the file in reading mode
 f1 = open("index.html", mode='r')
@@ -101,5 +69,3 @@ new_file_str = re.sub("^(<!--start topics-->.*<!--end topics-->)$","<!--start to
 f2 = open("index2.html", mode = 'w')
 f2.write(new_file_str)
 f2.close()
-
-os.system("cp index2.html index.html")

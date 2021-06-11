@@ -1,1 +1,1 @@
-python list_files.py > content.html
+python list_files.py
