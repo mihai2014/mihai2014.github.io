@@ -1,4 +1,4 @@
-#generate index.html / topics
+#generate index.html for github io site
 
 import os
 import re
@@ -69,3 +69,5 @@ new_file_str = re.sub("^(<!--start topics-->.*<!--end topics-->)$","<!--start to
 f2 = open("index2.html", mode = 'w')
 f2.write(new_file_str)
 f2.close()
+
+os.system("cp index2.html index.html")

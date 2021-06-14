@@ -7,27 +7,60 @@ from names import names
 
 DIR = "/home/mihai/export/"
 HOST_DIR = "/book/"
-EXPORT = False
+EXPORT = True
 
 string = ""
 
+if(EXPORT):
+    os.system("rm -rf /home/mihai/export/")
+
 def export2html(dir_name, file_path):
+
+    print(">>>",file_path)
+
+    # copy png images
+    match_png = re.search(r".png",file_path)
+    if (match_png):
+        cmd = "mkdir " + DIR + dir_name + "/"
+        #maybe there is already
+        try:
+            print(cmd)
+            #os.system(cmd)
+        except:
+            pass
+        cmd = "cp " + file_path + " " + DIR + dir_name + "/"
+        print(cmd)
+        #os.system(cmd)
+
+    # copy html files
     match = re.search(r".html",file_path)
-    #html file
     if match:
         match2 = re.search("/",file_path)
         #print(match2,file_path)
-        #do not copy root html files
+        #do not copy root files
         if(match2):
-            cmd = "cp " + file_path + " " + DIR + dir_name
+            cmd = "mkdir " + DIR + dir_name + "/"
+            #maybe there is already
+            try:
+                print(cmd)
+                #os.system(cmd)
+            except:
+                pass
+            cmd = "cp " + file_path + " " + DIR + dir_name + "/"
+            print(cmd)
+            #os.system(cmd)
         else:
             cmd = ""
-    #notebook file    
+    # notebook file convert    
     else:
         #ex:   jupyter nbconvert ml/net1.ipynb --output-dir='/home/mihai/export/ml/'  --to html 
         cmd = "jupyter nbconvert " + file_path + " --output-dir='" + DIR + dir_name +  "' --to html "
-    print(cmd)
-    os.system(cmd)
+        #print(cmd)
+        #os.system(cmd)
+
+    #??here, new dir structure are initiated by nbconvert
+    #copy png files it there are any
+
 
 def traverse_dir(dir_name):
 
@@ -76,7 +109,7 @@ def traverse_dir(dir_name):
                         export2html(dir_name[2:],fullpath)
                         relativePath = relativePath.replace(".ipynb",".html")
                         
-                    string += ('<li><a href="%s">%s</a></li>\n' % (relativePath,item))
+                    string += ('<li><a href="%s" target="_blank" rel="noopener noreferrer">%s</a></li>\n' % (relativePath,item))
 
 
             if os.path.isdir(fullpath):
