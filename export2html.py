@@ -8,7 +8,7 @@ toHtml.exportDir = "/home/mihai/export"
 toHtml.root = "/book"                   
 toHtml.go()
 
-f = open("ai.html", mode = 'w')
+f = open(toHtml.exportDir + "/" + "ai.html", mode = 'w')
 f.write(toHtml.string)
 f.close()
 

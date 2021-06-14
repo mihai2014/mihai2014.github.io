@@ -25,6 +25,7 @@ class ScanDir:
         
         #===folder===
         if os.path.isdir(fullpath):
+
             self.string += ('<li>%s</li>\n' % item)
             cmd = "mkdir " + self.exportDir + fullpath[1:] + "/"
             os.system(cmd)
@@ -33,8 +34,6 @@ class ScanDir:
         else:
             #filter root files       
             if(dirName != "."):
-                #linkpath = self.root + fullpath[1:]
-                #print(fullpath[1:])
                 
                 relativepath = self.root + fullpath[1:]
                 #rename item if defined alternate name
@@ -56,7 +55,7 @@ class ScanDir:
                     cmd = "cp " + fullpath[2:] + " " + self.exportDir + fullpath[1:] 
                     os.system(cmd)
 
-                    #no need for link link
+                    #no need for link
 
                 if(re.search(r".ipynb",item)): 
                     #convert notebook
@@ -108,10 +107,10 @@ class ScanDir:
 
                 fullpath = os.path.join(dirName, item)
                 
-                self.createTopics(fullpath, dirName, item)
-
                 if(self.export):
                     self.toHtml(fullpath, dirName, item) 
+                else:
+                    self.createTopics(fullpath, dirName, item)    
 
                 if os.path.isdir(fullpath):
                     if os.listdir(fullpath) != []:
