@@ -9,6 +9,8 @@ toHtml.root = "/book"
 toHtml.go()
 
 headerDjangoTemplate = """
+{% extends 'base.html' %}
+
 {% load static %}
 
 {% block content %}
@@ -26,10 +28,10 @@ footerDjangoTemplate = """
 {% endblock content %}
 """
 
-string = headerDjangoTemplate + string + footerDjangoTemplate
+newString = headerDjangoTemplate + toHtml.string + footerDjangoTemplate
 
 f = open(toHtml.exportDir + "/" + "ai.html", mode = 'w')
-f.write(toHtml.string)
+f.write(newString)
 f.close()
 
 
