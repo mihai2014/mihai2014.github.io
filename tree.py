@@ -60,12 +60,13 @@ class ScanDir:
                 if(re.search(r".ipynb",item)): 
                     #convert notebook
                     #ex:   jupyter nbconvert ml/net1.ipynb --output-dir='/home/mihai/export/ml/'  --to html 
-                    cmd = "jupyter nbconvert " + fullpath[2:] + " --output-dir='" + self.exportDir + dirName[1:] +  "' --to html "
+                    cmd = "jupyter nbconvert " + fullpath[2:] + " --output-dir='" + self.exportDir + dirName[1:] +  "' --to html --template mihai"
                     os.system(cmd)  
 
                     #create html topic link
                     newlink = relativepath.replace(".ipynb",".html")    
-                    self.string += (f"<li><a href=\"{newlink}\" target=\"_blank\" rel=\"noopener noreferrer\">{renamedItem}</a></li>\n")    
+                    #self.string += (f"<li><a href=\"{newlink}\" target=\"_blank\" rel=\"noopener noreferrer\">{renamedItem}</a></li>\n")    
+                    self.string += (f"<li><a href=\"{newlink}\" >{renamedItem}</a></li>\n")
 
     def createTopics(self, fullpath, dirName ,item):
         
