@@ -1,2 +1,3 @@
+#/anaconda3/bin/python
 python create_index.py
-python python export2html.py
+python export2html.py
