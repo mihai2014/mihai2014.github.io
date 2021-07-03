@@ -1,0 +1,508 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block tags %}
+  <meta name="author" content="Mihai Corciu">
+  <meta name="description" content="Data Science with Python" />
+  <meta name="keywords" content="pytorch, neural networks definition">
+  <!--Google Code Prettify-->
+  <!--https://w3bits.com/google-code-prettify/-->
+  <link rel="stylesheet" type="text/css" href="{% static 'notebooks/google-code-prettify/prettify.css' %}">
+
+<style>
+    .cell{
+      border: 1px solid black;
+    }
+    .center-h{
+      margin: auto;
+      display: block;
+      width: 90%;
+    }
+    .center-v{
+      display: flex;
+      justify-content: center;
+      /*height: 800px;*/
+    }
+    .label{
+      display: inline;
+      /*background-color: cyan;*/
+      color: blue;
+      font-size: 1.5em;
+      border: 1px solid cyan;
+    }
+</style>  
+{% endblock tags %}
+
+
+{% block content %}
+
+<div class="container">
+
+   <h1>Neural network definitions in pytorch</h1>
+
+   <h2>2 inputs, 1 output</h2>
+
+   <!-- images --> 
+  <div class="row">  
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i2_o1_sigmoid_01a.png' %} alt="nn">
+    </div>
+    <div class="col cell center-v">
+	    <img class="center-h" src="{% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i2_o1_sigmoid_01.png' %}" alt="nn">
+    </div>
+  </div>
+
+  <!-- code -->
+  <div class="row">
+    <div class="col-md-6 cell">
+      <p class="label">Explicit</p> 
+        <pre class="prettyprint">
+        <code>
+#features
+x = torch.from_numpy(data[:, [0,1]]).double()
+#target/labels
+y = torch.from_numpy(data[:, [2]]).double()
+
+# Define the size of each layer in our network
+n_input = 2    # Number of input units, must match number of input features
+n_hidden = 1   # Number of hidden units 
+n_output = 1   # Number of output units
+
+# Weights for inputs to hidden layer
+w = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
+
+# and bias terms for hidden and output layers
+b = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
+        </code>	  
+	</pre>
+    </div>
+    <div class="col-md-6 cell">
+      <p class="label">Class+Explicit</p>
+      <pre class="prettyprint">
+      <code>
+class NN:
+    
+    def __init__(self, inputUnits, hiddenUnits, outputUnits):
+        # Define the size of each layer in our network
+        n_input = inputUnits     # Number of input units, must match number of input features
+        n_hidden = hiddenUnits   # Number of hidden units 
+        n_output = outputUnits   # Number of output units
+
+        # Weights for inputs to hidden layer
+        self.w1 = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
+        # and bias terms for hidden and output layers
+        self.b1 = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
+        self.activation = torch.nn.Sigmoid()
+        
+    def forward(self,x):
+        o = self.activation(torch.mm(x,self.w1)+(self.b1))
+        return o
+    
+net = NN(2,1,1)
+      </code>
+      </pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 cell">
+      <p class="label">Class+Linear</p>
+      <pre class="prettyprint">
+      <code>
+#        nn.Linear(input,neurons)    
+linear = nn.Linear(2, 1)
+linear.weight
+
+class Network(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.linear = nn.Linear(2,1)
+        self.activation = nn.Sigmoid()
+
+    def forward(self,x):
+        o = self.linear(x)
+        o = self.activation(o)
+        return o
+
+net = Network()
+      </code>
+      </pre>
+    </div>
+    <div class="col-md-6 cell">
+      <p class="label">Sequential+Linear</p>
+      <pre class="prettyprint">
+      <code>
+net = nn.Sequential(nn.Linear(2, 1),
+                    nn.Sigmoid(),
+                   )
+      </code>
+      </pre>
+    </div>
+  </div>
+  <!-- end code-->
+
+
+
+   <h2>2 inputs, 2 output</h2>
+
+   <!-- images -->
+   <div class="row">
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i2_o2_sigmoid_01a.png' %} alt="nn">
+    </div>
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i2_o2_sigmoid_01.png' %} alt="nn">
+    </div>
+  </div>
+
+  <!-- code -->
+  <div class="row">
+    <div class="col cell">
+      <p class="label">Explicit</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+    <div class="col cell">
+      <p class="label">Class+Explicit</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col cell">
+      <p class="label">Class+Linear</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+    <div class="col cell">
+      <p class="label">Sequential+Linear</p>
+      <pre class="prettyprint">
+      <code>
+net = torch.nn.Sequential(
+  torch.nn.Linear(2,2),
+  torch.nn.Sigmoid()
+);
+      </code>
+      </pre>      
+    </div>
+  </div>
+  <!-- end code-->
+
+
+ <h2>2 inputs, 3 output</h2>
+
+   <!-- images -->
+   <div class="row">
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i2_o3_sigmoid_01a.png' %} alt="nn">
+    </div>
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i2_o3_sigmoid_01.png' %} alt="nn">
+    </div>
+  </div>
+
+  <!-- code -->
+  <div class="row">
+    <div class="col cell">
+      <p class="label">Explicit</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+    <div class="col cell">
+      <p class="label">Class+Explicit</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col cell">
+      <p class="label">Class+Linear</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+    <div class="col cell">
+      <p class="label">Sequential+Linear</p>
+      <pre class="prettyprint">
+      <code>
+net = torch.nn.Sequential(
+  torch.nn.Linear(2,3),
+  torch.nn.Sigmoid()
+  );
+      </code>
+      </pre>      
+    </div>
+  </div>
+  <!-- end code-->
+
+
+ <h2>3 inputs, 2 output</h2>
+
+   <!-- images -->
+   <div class="row">
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i3_o2_sigmoid_01a.png' %} alt="nn">
+    </div>
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i3_o2_sigmoid_01.png' %} alt="nn">
+    </div>
+  </div>
+
+  <!-- code -->
+  <div class="row">
+    <div class="col cell">
+      <p class="label">Explicit</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+    <div class="col cell">
+      <p class="label">Class+Explicit</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col cell">
+      <p class="label">Class+Linear</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+    <div class="col cell">
+      <p class="label">Sequential+Linear</p>
+      <pre class="prettyprint">
+      <code>
+net = torch.nn.Sequential(
+  torch.nn.Linear(3,2),
+  torch.nn.Sigmoid()
+  );
+      </code>
+      </pre>      
+    </div>
+  </div>
+  <!-- end code-->
+
+
+<h2>1 Hidden Layer : 2 neuron, 1 Output Layer</h2>
+
+   <!-- images -->
+   <div class="row">
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i2_H1_n2_o1_sigmoid_01a.png' %} alt="nn">
+    </div>
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i2_H1_n2_o1_sigmoid_01.png' %} alt="nn">
+    </div>
+  </div>
+
+  <!-- code -->
+  <div class="row">
+    <div class="col cell">
+      <p class="label">Explicit</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+    <div class="col cell">
+      <p class="label">Class+Explicit</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col cell">
+      <p class="label">Class+Linear</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+    <div class="col cell">
+      <p class="label">Sequential+Linear</p>
+      <pre class="prettyprint">
+      <code>
+net = torch.nn.Sequential(
+  torch.nn.Linear(2,2),
+  torch.nn.Sigmoid()
+  torch.nn.Linear(2,1),
+  torch.nn.Sigmoid()
+  );
+      </code>
+      </pre>      
+    </div>
+  </div>
+  <!-- end code-->
+
+
+  <h2>1 Hidden Layer : 3 neuron, 1 Output Layer</h2>
+
+   <!-- images -->
+   <div class="row">
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i2_H1_n3_o1_sigmoid_01a.png' %} alt="nn">
+    </div>
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i2_H1_n3_o1_sigmoid_01.png' %} alt="nn">
+    </div>
+  </div>
+
+  <!-- code -->
+  <div class="row">
+    <div class="col cell">
+      <p class="label">Explicit</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+    <div class="col cell">
+      <p class="label">Class+Explicit</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col cell">
+      <p class="label">Class+Linear</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+    <div class="col cell">
+      <p class="label">Sequential+Linear</p>
+      <pre class="prettyprint">
+      <code>
+net = torch.nn.Sequential(
+  torch.nn.Linear(2,3),
+  torch.nn.Sigmoid()
+  torch.nn.Linear(3,1),
+  torch.nn.Sigmoid()
+);
+</code>
+      </pre>      
+    </div>
+  </div>
+  <!-- end code-->
+
+
+  <h2>2 Hidden Layers : 4 and 6 Neurons, and 1 Output Neurons</h2>
+
+   <!-- images -->
+   <div class="row">
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i1_H1_n4_H2_n6_o1_sigmoid_01a.png' %} alt="nn">
+    </div>
+    <div class="col cell center-v">
+      <img class="center-h" src={% static 'notebooks/nn_img/Python_Pytorch_nn_Sequential_i1_H1_n4_H2_n6_o1_sigmoid_01.png' %} alt="nn">
+    </div>
+  </div>
+
+  <!-- code -->
+  <div class="row">
+    <div class="col cell">
+      <p class="label">Explicit</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+    <div class="col cell">
+      <p class="label">Class+Explicit</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col cell">
+      <p class="label">Class+Linear</p>
+      <pre class="prettyprint">
+      <code>
+      ...
+      </code>
+      </pre>      
+    </div>
+    <div class="col cell">
+      <p class="label">Sequential+Linear</p>
+      <pre class="prettyprint">
+      <code>
+net = torch.nn.Sequential(
+  torch.nn.Linear(1,4),
+  torch.nn.Sigmoid(),
+  torch.nn.Linear(4,6),
+  torch.nn.Sigmoid(),
+  torch.nn.Linear(6,1)
+);
+      </code>
+      </pre>      
+    </div>
+  </div>
+  <!-- end code-->
+
+<p>Reference:</p>
+<p>http://www.sharetechnote.com/html/Python_PyTorch_nn_Sequential_01.html</p>
+</div>
+
+<script src={% static 'notebooks/google-code-prettify/prettify.js' %}></script>
+
+<script>
+  window.onload = (function(){ prettyPrint(); });
+</script>
+
+
+{% endblock content %}
+
+
+
