@@ -18,55 +18,6 @@ class ScanDir:
         os.system("rm -rf /home/mihai/export/")
         os.system("mkdir /home/mihai/export/")
 
-    def djTemplate(self,file):
-        
-        f = open(file, mode = 'r')
-        htmlFile = f.read()
-        #print(htmlFile)
-        #if the file does not have block tags or content: stop
-        try:
-            blockTags = re.findall("<!-- blocktags -->(.*)<!-- endblocktags -->",htmlFile,	re.DOTALL)[0]
-            blockContent = re.findall("<!-- blockcontent -->(.*)<!-- endblockcontent -->",htmlFile,    re.DOTALL)[0]
-        except:
-            #print("regular html file:",file)
-            f.close()
-            return ""    
-        f.close()
-
-        #print("dj template to html file: ",file)
-
-        #print(blockTags)
-        #print(blockContent)
-
-        newFile = """
-        {% extends 'base2.html' %}
-        {% load static %}
-
-        """ + \
-        "{% block tags %}\n" + \
-        blockTags + \
-        "{% endblock tags %}\n\n"+ \
-        "{% block content %}\n" + \
-        blockContent + \
-        "{% endblock content %}"
-
-        #print(newFile)
-
-        #convert links to /static/notebooks/...
-        newFile2 = ""
-
-        for line in newFile.split("\n"):
-            src = re.findall("src=\"(.*)\" ",line)
-            if(src):
-                src = src[0]
-                newsrc = "/static/notebooks/" + src
-                #print(newsrc)
-                line = line.replace(src,newsrc)
-            newFile2 += line + "\n"
-
-        #print(newFile2)    
-        return newFile2
-
 
     def toHtml(self, fullpath, dirName, item):
         # export notebooks to html
@@ -83,48 +34,21 @@ class ScanDir:
         else:
             #filter root files       
             if(dirName != "."):
-
+                
                 relativepath = self.root + fullpath[1:]
-
                 #rename item if defined alternate name
                 try:
                     renamedItem = names[item]
                 except:
                      renamedItem = item
-
+                        
                 if(re.search(r".html",item)):
-                    #add template to html files(except index.html) that have:
-                    #<!-- blocktags --> ... <!-- endblocktags -->
-                    #<!-- blockcontent --> ... <!-- endblockcontent -->                    
-                    source = fullpath[2:]
-                    destination = self.exportDir + fullpath[1:]
-                    #rename file with dj template
-                    destination = destination.replace(".html", "_dj.html")
-                    htmlFileStr = self.djTemplate(source)
-                    if(htmlFileStr != ""):
-                        #write html file with dj template
-                        print("* html file with dj template:",destination)
-                        f = open(destination, mode = 'w')
-                        f.write(htmlFileStr)
-                        f.close()     
-
-                        newitem = item.replace(".html", "_dj.html")
-                        #rename dj html if defined alternate name
-                        try:
-                            renamedItem = names[newitem]
-                        except:
-                            renamedItem = newitem                        
-
-                    else:
-                        #copy html file    
-                        print("! regular html file: ", self.exportDir + fullpath[1:])
-                        cmd = "cp " + fullpath[2:] + " " + self.exportDir + fullpath[1:] 
-                        os.system(cmd)
+                    #copy html and png file    
+                    cmd = "cp " + fullpath[2:] + " " + self.exportDir + fullpath[1:] 
+                    os.system(cmd)
 
                     #create html topic link
-                    relativepath = relativepath.replace(".html", "_dj.html")
-                    self.string += (f"<li><a href=\"{relativepath}\"">{renamedItem}</a></li>\n")
-                    
+                    self.string += (f"<li><a href=\"{relativepath}\" target=\"_blank\" rel=\"noopener noreferrer\">{renamedItem}</a></li>\n")
 
                 if(re.search(r".png",item)):
                     #copy html and png file    
@@ -169,6 +93,7 @@ class ScanDir:
                 self.string += (f"<li><a href=\"{relativepath}\" target=\"_blank\" rel=\"noopener noreferrer\">{item}</a></li>\n")
             
         # ---------------------------------------------------------------
+
 
     def scan_tree(self,dirName):    
         

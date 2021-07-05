@@ -1,5 +1,7 @@
-https://nbviewer.jupyter.org/github/mihai2014/mihai2014.github.io/blob/master/ml/backprop1.ipynb
-
-https://nbviewer.jupyter.org/github/mihai2014/mihai2014.github.io/blob/master/howto/pandas/pandas_sql1.ipynb
-https://                 github.com/mihai2014/mihai2014.github.io/blob/master/howto/pandas/pandas_sql1.ipynb
-
+dj template to html file:  howto/matplotlib/nn_defs.html
+---------> /howto/matplotlib/nn_defs.html
+regular html file: ml/Introduction/nn_defs_dj.html
+regular html file: ml/Introduction/test.html
+dj template to html file:  ml/Pytorch/nn_defs.html
+---------> /ml/Pytorch/nn_defs.html
+regular html file: ml/Pytorch/nn_defs_dj.html

@@ -1,40 +1,61 @@
-{% extends 'base2.html' %}
 
-{% block tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- blocktags -->
+
   <meta name="author" content="Mihai Corciu">
   <meta name="description" content="Data Science with Python" />
   <meta name="keywords" content="pytorch, neural networks definition">
+
   <!--Google Code Prettify-->
   <!--https://w3bits.com/google-code-prettify/-->
-  <link rel="stylesheet" type="text/css" href="{% static 'notebook/google-code-prettify/prettify.css' %}">
+  <link rel="stylesheet" href="google-code-prettify/prettify.css" />
 
-<style>
+  <title>nn defs in pytorch</title>
+
+  <style>
     .cell{
-      border: 1px solid black;
+      border: 1px solid black;	    
     }
     .center-h{
-      margin: auto;
+      margin: auto;    
       display: block;
       width: 90%;
     }
     .center-v{
       display: flex;
       justify-content: center;
-      /*height: 800px;*/
-    }
+      /*height: 800px;*/	    
+    }	    
     .label{
-      display: inline;
+      display: inline;	    
       /*background-color: cyan;*/
       color: blue;
       font-size: 1.5em;
       border: 1px solid cyan;
     }
-</style>  
-{% endblock tags %}
+    .example{
+      font-size: 1.1em;
+      margin-left:10px;
+    }
+    
+  </style>
+<!-- endblocktags -->  
+</head>
 
+<body>
 
-{% block content %}
-
+<!-- blockcontent -->
 <div class="container">
 
    <h1>Neural network definitions in pytorch</h1>
@@ -44,12 +65,10 @@
    <!-- images --> 
   <div class="row">  
     <div class="col cell center-v">
-      <!--<img class="center-h" src="nn_img/Python_Pytorch_nn_Sequential_i2_o1_sigmoid_01a.png" alt="nn">	-->
-      <img class="center-h" src={% static 'notebook/nn_img/Python_Pytorch_nn_Sequential_i2_o1_sigmoid_01a.png' %} alt="nn">
+      <img class="center-h" src="nn_img/Python_Pytorch_nn_Sequential_i2_o1_sigmoid_01a.png" alt="nn">	
     </div>
     <div class="col cell center-v">
-	    <!--<img class="center-h" src="nn_img/Python_Pytorch_nn_Sequential_i2_o1_sigmoid_01.png" alt="nn">-->
-	    <img class="center-h" src="{% static 'notebook/nn_img/Python_Pytorch_nn_Sequential_i2_o1_sigmoid_01.png' %}" alt="nn">
+      <img class="center-h" src="nn_img/Python_Pytorch_nn_Sequential_i2_o1_sigmoid_01.png" alt="nn">
     </div>
   </div>
 
@@ -57,6 +76,7 @@
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Explicit</p> 
+      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
         <pre class="prettyprint">
         <code>
 #features
@@ -79,6 +99,7 @@ b = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
     </div>
     <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
+      <!--<span class="example"><a href="nn_img/1a-2input-1output.ipynb" target="_blank">see example</a></span>-->
       <pre class="prettyprint">
       <code>
 class NN:
@@ -108,6 +129,7 @@ net = NN(2,1,1)
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
+      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
       <pre class="prettyprint">
       <code>
 #        nn.Linear(input,neurons)    
@@ -140,7 +162,7 @@ net = nn.Sequential(nn.Linear(2, 1),
       </pre>
     </div>
   </div>
-  <!-- end code-->
+  <!-- end code -->
 
 
 
@@ -158,19 +180,59 @@ net = nn.Sequential(nn.Linear(2, 1),
 
   <!-- code -->
   <div class="row">
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Explicit</p>
+      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
       <pre class="prettyprint">
       <code>
-      ...
+#features
+x = torch.from_numpy(data[:, [0,1]]).double()
+#target/labels
+y = torch.from_numpy(data[:, [2,3]]).double()
+
+# Define the size of each layer in our network
+n_input = 2    # Number of input units, must match number of input features
+n_hidden = 2   # Number of hidden units 
+n_output = 2   # Number of output units
+
+# Weights for inputs to hidden layer
+w = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
+
+# and bias terms for hidden and output layers
+b = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
       </code>
       </pre>      
     </div>
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
+      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
       <pre class="prettyprint">
       <code>
-      ...
+#features
+x = torch.from_numpy(data[:, [0,1]]).double()
+#target/labels
+y = torch.from_numpy(data[:, [2,3]]).double()
+
+class NN:
+    
+    def __init__(self, inputUnits, hiddenUnits, outputUnits):
+        # Define the size of each layer in our network
+        n_input = inputUnits     # Number of input units, must match number of input features
+        n_hidden = hiddenUnits   # Number of hidden units 
+        n_output = outputUnits   # Number of output units
+
+        # Weights for inputs to hidden layer
+        self.w1 = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
+        # and bias terms for hidden and output layers
+        self.b1 = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
+        self.activation = torch.nn.Sigmoid()
+        
+    def forward(self,x):
+        o = self.activation(torch.mm(x,self.w1)+(self.b1))
+        return o
+    
+net = NN(2,2,2)
+print(net.forward(x)) 
       </code>
       </pre>      
     </div>
@@ -178,16 +240,34 @@ net = nn.Sequential(nn.Linear(2, 1),
 
 
   <div class="row">
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
+      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
       <pre class="prettyprint">
       <code>
-      ...
+#features
+x = torch.from_numpy(data[:, [0,1]]).double()
+#target/labels
+y = torch.from_numpy(data[:, [2,3]]).double()
+
+class Network(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.linear = nn.Linear(2,2)
+        self.activation = nn.Sigmoid()
+        
+    def forward(self,x):
+        o = self.linear(x)
+        o = self.activation(o)
+        return o
+
+net = Network()
       </code>
       </pre>      
     </div>
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
+      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
       <pre class="prettyprint">
       <code>
 net = torch.nn.Sequential(
@@ -198,7 +278,7 @@ net = torch.nn.Sequential(
       </pre>      
     </div>
   </div>
-  <!-- end code-->
+  <!-- end code -->
 
 
  <h2>2 inputs, 3 output</h2>
@@ -215,7 +295,7 @@ net = torch.nn.Sequential(
 
   <!-- code -->
   <div class="row">
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Explicit</p>
       <pre class="prettyprint">
       <code>
@@ -223,7 +303,7 @@ net = torch.nn.Sequential(
       </code>
       </pre>      
     </div>
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
       <pre class="prettyprint">
       <code>
@@ -235,7 +315,7 @@ net = torch.nn.Sequential(
 
 
   <div class="row">
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
       <pre class="prettyprint">
       <code>
@@ -243,7 +323,7 @@ net = torch.nn.Sequential(
       </code>
       </pre>      
     </div>
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
       <pre class="prettyprint">
       <code>
@@ -255,7 +335,7 @@ net = torch.nn.Sequential(
       </pre>      
     </div>
   </div>
-  <!-- end code-->
+  <!-- end code -->
 
 
  <h2>3 inputs, 2 output</h2>
@@ -272,7 +352,7 @@ net = torch.nn.Sequential(
 
   <!-- code -->
   <div class="row">
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Explicit</p>
       <pre class="prettyprint">
       <code>
@@ -280,7 +360,7 @@ net = torch.nn.Sequential(
       </code>
       </pre>      
     </div>
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
       <pre class="prettyprint">
       <code>
@@ -292,7 +372,7 @@ net = torch.nn.Sequential(
 
 
   <div class="row">
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
       <pre class="prettyprint">
       <code>
@@ -300,7 +380,7 @@ net = torch.nn.Sequential(
       </code>
       </pre>      
     </div>
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
       <pre class="prettyprint">
       <code>
@@ -312,7 +392,7 @@ net = torch.nn.Sequential(
       </pre>      
     </div>
   </div>
-  <!-- end code-->
+  <!-- end code -->
 
 
 <h2>1 Hidden Layer : 2 neuron, 1 Output Layer</h2>
@@ -329,7 +409,7 @@ net = torch.nn.Sequential(
 
   <!-- code -->
   <div class="row">
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Explicit</p>
       <pre class="prettyprint">
       <code>
@@ -337,7 +417,7 @@ net = torch.nn.Sequential(
       </code>
       </pre>      
     </div>
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
       <pre class="prettyprint">
       <code>
@@ -349,7 +429,7 @@ net = torch.nn.Sequential(
 
 
   <div class="row">
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
       <pre class="prettyprint">
       <code>
@@ -357,7 +437,7 @@ net = torch.nn.Sequential(
       </code>
       </pre>      
     </div>
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
       <pre class="prettyprint">
       <code>
@@ -371,7 +451,7 @@ net = torch.nn.Sequential(
       </pre>      
     </div>
   </div>
-  <!-- end code-->
+  <!-- end code -->
 
 
   <h2>1 Hidden Layer : 3 neuron, 1 Output Layer</h2>
@@ -388,7 +468,7 @@ net = torch.nn.Sequential(
 
   <!-- code -->
   <div class="row">
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Explicit</p>
       <pre class="prettyprint">
       <code>
@@ -396,7 +476,7 @@ net = torch.nn.Sequential(
       </code>
       </pre>      
     </div>
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
       <pre class="prettyprint">
       <code>
@@ -408,7 +488,7 @@ net = torch.nn.Sequential(
 
 
   <div class="row">
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
       <pre class="prettyprint">
       <code>
@@ -416,7 +496,7 @@ net = torch.nn.Sequential(
       </code>
       </pre>      
     </div>
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
       <pre class="prettyprint">
       <code>
@@ -430,7 +510,7 @@ net = torch.nn.Sequential(
       </pre>      
     </div>
   </div>
-  <!-- end code-->
+  <!-- end code -->
 
 
   <h2>2 Hidden Layers : 4 and 6 Neurons, and 1 Output Neurons</h2>
@@ -447,7 +527,7 @@ net = torch.nn.Sequential(
 
   <!-- code -->
   <div class="row">
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Explicit</p>
       <pre class="prettyprint">
       <code>
@@ -455,7 +535,7 @@ net = torch.nn.Sequential(
       </code>
       </pre>      
     </div>
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
       <pre class="prettyprint">
       <code>
@@ -467,7 +547,7 @@ net = torch.nn.Sequential(
 
 
   <div class="row">
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
       <pre class="prettyprint">
       <code>
@@ -475,7 +555,7 @@ net = torch.nn.Sequential(
       </code>
       </pre>      
     </div>
-    <div class="col cell">
+    <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
       <pre class="prettyprint">
       <code>
@@ -490,7 +570,7 @@ net = torch.nn.Sequential(
       </pre>      
     </div>
   </div>
-  <!-- end code-->
+  <!-- end code -->
 
 <p>Reference:</p>
 <p>http://www.sharetechnote.com/html/Python_PyTorch_nn_Sequential_01.html</p>
@@ -502,8 +582,8 @@ net = torch.nn.Sequential(
   window.onload = (function(){ prettyPrint(); });
 </script>
 
+<!-- endblockcontent -->
 
-{% endblock content %}
-
-
+</body>
+</html>
 
