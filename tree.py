@@ -123,7 +123,7 @@ class ScanDir:
 
                     #create html topic link
                     relativepath = relativepath.replace(".html", "_dj.html")
-                    self.string += (f"<li><a href=\"{relativepath}\"">{renamedItem}</a></li>\n")
+                    self.string += (f"<li><a href=\"{relativepath}\">{renamedItem}</a></li>\n")
                     
 
                 if(re.search(r".png",item)):

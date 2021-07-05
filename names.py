@@ -25,4 +25,5 @@ names = {
 'tangent1.ipynb':'Drawing tangents',
 'pandas_sql1.ipynb':'Queries1',
 'pandas_sql2.ipynb':'Queries2',
+'00_nn_defs_dj.html':'Neural network definitions in pytorch',
 }        
