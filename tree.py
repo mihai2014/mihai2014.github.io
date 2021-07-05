@@ -113,17 +113,19 @@ class ScanDir:
                         try:
                             renamedItem = names[newitem]
                         except:
-                            renamedItem = newitem                        
+                            renamedItem = newitem                       
 
+                        #create html topic link
+                        relativepath = relativepath.replace(".html", "_dj.html")
+                        self.string += (f"<li><a href=\"{relativepath}\">{renamedItem}</a></li>\n")
                     else:
                         #copy html file    
                         print("! regular html file: ", self.exportDir + fullpath[1:])
                         cmd = "cp " + fullpath[2:] + " " + self.exportDir + fullpath[1:] 
                         os.system(cmd)
 
-                    #create html topic link
-                    relativepath = relativepath.replace(".html", "_dj.html")
-                    self.string += (f"<li><a href=\"{relativepath}\">{renamedItem}</a></li>\n")
+                        #create html topic link
+                        self.string += (f"<li><a href=\"{relativepath}\">{renamedItem}</a></li>\n")
                     
 
                 if(re.search(r".png",item)):
@@ -157,7 +159,9 @@ class ScanDir:
         #===file===    
         else:
             #filter only notebooks and html ?
-            matchFiles = re.search(".html|.ipynb",item)
+
+            #matchFiles = re.search(".html|.ipynb",item)
+            matchFiles = re.search(".ipynb",item)
             #filter root files       
             if(dirName != "." and matchFiles):
                 relativepath = self.root + fullpath[1:]
@@ -167,7 +171,19 @@ class ScanDir:
                 except:
                     pass                
                 self.string += (f"<li><a href=\"{relativepath}\" target=\"_blank\" rel=\"noopener noreferrer\">{item}</a></li>\n")
-            
+
+            matchFiles = re.search(".html",item)
+            #filter root files       
+            if(dirName != "." and matchFiles):
+                relativepath = fullpath[1:]
+                #rename item if defined alternate name
+                try:
+                    item = names[item]
+                except:
+                    pass
+                self.string += (f"<li><a href=\"{relativepath}\" target=\"_blank\" rel=\"noopener noreferrer\">{item}</a></li>\n")
+
+
         # ---------------------------------------------------------------
 
     def scan_tree(self,dirName):    
