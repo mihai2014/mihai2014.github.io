@@ -1,5 +1,5 @@
 from tree import ScanDir
-import re, os
+import re, os, sys
 
 #generate index.html for github.io
 toHtml = ScanDir()     
@@ -18,6 +18,8 @@ headerDjangoTemplate = """
     <div class="container">
       <div class="row">
 
+      <!--<p style=""><a href="/book/about.html" target="_blank">About</a></p>-->
+
 """
 
 footerDjangoTemplate = """
@@ -34,5 +36,10 @@ f = open(toHtml.exportDir + "/" + "ai.html", mode = 'w')
 f.write(newString)
 f.close()
 
-
-
+#copy about.html
+#cmd = "cp " + "about.html" + " " + toHtml.exportDir
+#os.system(cmd)
+#cmd = "cp " + "me2.png" + " " + toHtml.exportDir
+#os.system(cmd)
+#cmd = "cp " + "jeremy-thomas-E0AHdsENmDg-unsplash.jpg" + " " + toHtml.exportDir
+#os.system(cmd)

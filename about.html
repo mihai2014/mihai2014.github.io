@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Corciu Mihai</title>
+  <meta name="description" content="Corciu Mihai - Python development">
+  <meta name="keywords" content="Corciu, Mihai, Oltenita, Bucuresti, web development, python">    
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!--<link rel="stylesheet" type="text/css" href="css-reset-meyer.css">-->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">  -->
+  <!--<link rel="stylesheet" type="text/css" href="about.css">-->
+
+<style>
+/* Resetare CSS */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center; /* apply to children: profile-card */
+  align-items: center;
+  height: 100vh; /* for vertical centering profile-card */
+  /*
+  background-image: url('http://i.imgur.com/9kh3G8L.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  */
+  background: url('jeremy-thomas-E0AHdsENmDg-unsplash.jpg') no-repeat center center fixed;
+  background-size: cover;  
+}
+
+.profile-card {
+  background-color: hsla(60, 100%, 50%, .4);
+  width: 480px;
+  max-width: calc(100vw - 10px);   /*?*/
+
+  background-color: hsla(0, 0%, 100%, .5);
+  border-radius: 4px;
+  box-shadow: hsla(0, 0%, 0%, .8) 10px 10px 80px;  
+}
+
+.head {
+  /*background-color: pink;*/
+}
+
+.content {
+  /*background-color: rgb(102, 255, 179);*/
+}
+
+.about,  .links {
+  /*background-color: rgba(0, 0, 255, 0.3);*/
+}
+
+.head, .links {
+  text-align: center;
+}
+
+.head, .content {
+  width: 90%;
+  /* valorile sunt pentru sus, dreapta, jos, stânga */
+  /* margin: 0 auto 0 auto */
+  /*  sus și jos, dreapta și stânga) */
+  margin: 0 auto;
+  margin-top: -60px;
+}
+
+img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  padding: 1px;
+  background-color: #666; 
+  filter: grayscale(50%); 
+}
+
+img:hover {
+  transform: scale(1.1);
+  transition: all 0.5s ease-in-out;
+  filter: grayscale(20%);
+}
+
+.profile-image {
+  /*margin-top: -60px;*/
+}
+
+/* Linkurile de contact */
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: inline;
+}
+
+
+.head, .about {
+  margin-bottom: 10%;
+}
+
+.content {
+  padding: 5% 10%;
+  border-top: 1px solid hsla(0, 0%, 30%, .8);
+}
+</style>
+
+</head>
+
+<body>
+
+  <div class="profile-card">
+    <div class="head">
+      <div class="profile-image">
+        <img src="me2.png" alt="poza">
+      </div>
+      <div class="name-headline">
+        <h1>Corciu Mihai</h1>
+	<h2>Python development</h2>
+	<!--<h2><i class="fa fa-map-marker"></i> Oltenita, RO</h2>-->
+	<br>
+	<h2><a href="https://django.mihaicorciu.ro">Django Blog</a></h2>
+	<h2><a href="https://mihaicorciu.ro">Python Data science</a></h2>	
+	<br>
+      </div>
+    </div>
+    <div class="content">
+      <p class="about">
+        Love to fiddle with the details apps. 
+      </p>
+      <section class="links">
+        <h2>Contact:</h2>
+        <ul>
+          <!--<i class="fa fa-facebook" aria-hidden="true"></i>-->
+          <li><a href="https://mihaicorciu.ro/" title="mysite" class="social-icon"><i class="fa fa-linux" aria-hidden="true"></i></a></li>
+          <li><a href="https://www.linkedin.com/in/mihai-corciu-oltenita/" title="LinkedIn" class="social-icon"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+          <li><a href="https://github.com/mihai2014" title="GitHub" class="social-icon"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+          <li><a href="https://mihai2014.github.io/" title="GitHub" class="social-icon"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+        </ul>
+	<br>
+	<p>mc200520052005@yahoo.com</p>
+      </section>
+    </div>
+  </div>
+
+</body>
+</html>
