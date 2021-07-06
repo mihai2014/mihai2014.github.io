@@ -10,7 +10,7 @@ class ScanDir:
         self.string = ""
         self.root = ""  #root index for topics links
         self.rootDir = "."
-        self.reFilterDir = "^\.(.*)|(front-end)|(__pycache__)|(debug)$"
+        self.reFilterDir = "^\.(.*)|(front-end)|(__pycache__)|(debug)|(src)$"
         self.reFilterFiles = ""
 
     def initExportDir(self):
