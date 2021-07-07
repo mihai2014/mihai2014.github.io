@@ -395,7 +395,7 @@ net = torch.nn.Sequential(
   <!-- end code -->
 
 
- <h2>3 inputs, 2 output</h2>
+ <h2>3 inputs, 2 outputs</h2>
 
    <!-- images -->
    <div class="row">
@@ -413,7 +413,21 @@ net = torch.nn.Sequential(
       <p class="label">Explicit</p>
       <pre class="prettyprint">
       <code>
-      ...
+# Define the size of each layer in our network
+n_input = 3    # Number of input units, must match number of input features
+n_hidden = 2   # Number of hidden units 
+n_output = 2   # Number of output units
+
+# Weights for inputs to hidden layer
+w = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
+
+# and bias terms for hidden and output layers
+b = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
+
+out = torch.nn.Sigmoid()(torch.mm(x,w)+(b))
+print(w)
+print(b)
+print(out)
       </code>
       </pre>      
     </div>
@@ -421,7 +435,28 @@ net = torch.nn.Sequential(
       <p class="label">Class+Explicit</p>
       <pre class="prettyprint">
       <code>
-      ...
+class NN:
+    
+    def __init__(self, inputUnits, hiddenUnits, outputUnits):
+        # Define the size of each layer in our network
+        n_input = inputUnits     # Number of input units, must match number of input features
+        n_hidden = hiddenUnits   # Number of hidden units 
+        n_output = outputUnits   # Number of output units
+
+        # Weights for inputs to hidden layer
+        self.w1 = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
+        # and bias terms for hidden and output layers
+        self.b1 = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
+        self.activation = torch.nn.Sigmoid()
+        
+    def forward(self,x):
+        o = self.activation(torch.mm(x,self.w1)+(self.b1))
+        return o
+    
+net = NN(3,2,2)
+print(net.w1)
+print(net.b1)
+print(net.forward(x)) 
       </code>
       </pre>      
     </div>
@@ -433,7 +468,26 @@ net = torch.nn.Sequential(
       <p class="label">Class+Linear</p>
       <pre class="prettyprint">
       <code>
-      ...
+#        nn.Linear(input,neurons)    
+linear = nn.Linear(3, 2)
+linear.weight
+
+class Network(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.linear = nn.Linear(3,2)
+        self.activation = nn.Sigmoid()
+        
+    def forward(self,x):
+        o = self.linear(x)
+        o = self.activation(o)
+        return o
+
+net = Network()
+print(net)   
+print(net.linear.weight.data)
+print(net.linear.bias.data)
+print(net.forward(x))  
       </code>
       </pre>      
     </div>
