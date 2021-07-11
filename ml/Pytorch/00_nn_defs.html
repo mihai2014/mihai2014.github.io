@@ -524,7 +524,29 @@ net = torch.nn.Sequential(
       <p class="label">Explicit</p>
       <pre class="prettyprint">
       <code>
-      ...
+# Define the size of each layer in our network
+n_input = 2    # Number of input units, must match number of input features
+n_hidden = 2   # Number of hidden units 
+n_output = 1   # Number of output units
+
+# Weights for inputs to hidden layer
+w1 = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
+# Weights for hidden layer to output layer
+w2 = torch.randn(n_hidden, n_output, dtype=torch.double, requires_grad=True)
+
+# and bias terms for hidden and output layers
+b1 = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
+b2 = torch.randn(1, n_output, dtype=torch.double, requires_grad=True)
+
+h = activation(torch.mm(x,w1) + b1)
+output = activation(torch.mm(h,w2) + b2)
+
+print(x)
+print(w1)
+print(b1)
+print(w2)
+print(b2)
+print(output)
       </code>
       </pre>      
     </div>
@@ -532,7 +554,35 @@ net = torch.nn.Sequential(
       <p class="label">Class+Explicit</p>
       <pre class="prettyprint">
       <code>
-      ...
+class NN():    
+    def __init__(self, inputUnits, hiddenUnits, outputUnits):
+        # Define the size of each layer in our network
+        n_input = 2    # Number of input units, must match number of input features
+        n_hidden = 2   # Number of hidden units 
+        n_output = 1   # Number of output units
+
+        # Weights for inputs to hidden layer
+        self.w1 = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
+        # Weights for hidden layer to output layer
+        self.w2 = torch.randn(n_hidden, n_output, dtype=torch.double, requires_grad=True)
+
+        # and bias terms for hidden and output layers
+        self.b1 = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
+        self.b2 = torch.randn(1, n_output, dtype=torch.double, requires_grad=True)  
+        
+        self.activation = torch.nn.Sigmoid()
+        
+    def forward(self,x):        
+        o = activation(torch.mm(x,self.w1) + self.b1)
+        o = activation(torch.mm(o,self.w2) + self.b2)        
+        return o
+        
+net = NN(2,2,1)
+print(net.w1)
+print(net.b1)
+print(net.w2)
+print(net.b2)
+print(net.forward(x))         
       </code>
       </pre>      
     </div>
@@ -544,7 +594,27 @@ net = torch.nn.Sequential(
       <p class="label">Class+Linear</p>
       <pre class="prettyprint">
       <code>
-      ...
+class Network(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.linear1 = nn.Linear(2,2)
+        self.linear2 = nn.Linear(2,1)
+        
+    def forward(self,x):
+        o = self.linear1(x)
+        o = torch.nn.Sigmoid()(o)
+        o = self.linear2(o)
+        o = torch.nn.Sigmoid()(o)
+        return o
+
+net = Network()
+print(net)   
+print(x)
+print(net.linear1.weight.data)
+print(net.linear1.bias.data)
+print(net.linear2.weight.data)
+print(net.linear2.bias.data)
+print(net.forward(x))  
       </code>
       </pre>      
     </div>
