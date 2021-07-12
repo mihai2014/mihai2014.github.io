@@ -29,6 +29,9 @@
     .cell{
       border: 1px solid black;	    
     }
+    .center-text{
+      text-align: center;
+    }
     .center-h{
       margin: auto;    
       display: block;
@@ -60,7 +63,37 @@
 <!-- blockcontent -->
 <div class="container">
 
-   <h1>Neural network definitions in pytorch</h1>
+  <h1 class="center-text"><b>Neural network definitions in pytorch</b></h1>
+
+
+  <br><br>
+  <div class="row">
+    <div class="col-md-6 cell">
+      <p class="label">Explicit network definition</p>
+      <pre class="prettyprint">
+      <code>
+# Sum  = [[x1 x2 ... xn],] * [[w1 ...],] + [[b1 b2 ... bn]]
+#         ...                 [w2 ...],
+#                             ...
+#                             [wn ...]
+# 
+# Sum =        x         *        w       +       b 
+
+out = torch.mm(x,w) + b
+      </code>
+      </pre>
+    </div>
+    <div class="col-md-6 cell">
+      <p class="label">nn.Linear network definition</p>
+        <pre class="prettyprint">
+        <code>
+out = torch.mm(x,w.T) + b[0]
+        </code>
+        </pre>      
+    </div>
+  </div>
+
+  <br><br>
 
    <h2>2 inputs, 1 output</h2>
 
@@ -78,14 +111,9 @@
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Explicit</p> 
-      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
+      <span class="example"><a href="/book/ml/Pytorch/1a-2inputs-1output.html" target="_blank">see example</a></span>
         <pre class="prettyprint">
         <code>
-#features
-x = torch.from_numpy(data[:, [0,1]]).double()
-#target/labels
-y = torch.from_numpy(data[:, [2]]).double()
-
 # Define the size of each layer in our network
 n_input = 2    # Number of input units, must match number of input features
 n_hidden = 1   # Number of hidden units 
@@ -96,21 +124,19 @@ w = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
 
 # and bias terms for hidden and output layers
 b = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
+
+out = torch.nn.Sigmoid()(torch.mm(x,w)+(b))
         </code>	  
 	</pre>
     </div>
     <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
-      <!--<span class="example"><a href="nn_img/1a-2input-1output.ipynb" target="_blank">see example</a></span>-->
+      <span class="example"><a href="/book/ml/Pytorch/1b-2inputs-1output.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 class NN:
     
-    def __init__(self, inputUnits, hiddenUnits, outputUnits):
-        # Define the size of each layer in our network
-        n_input = inputUnits     # Number of input units, must match number of input features
-        n_hidden = hiddenUnits   # Number of hidden units 
-        n_output = outputUnits   # Number of output units
+    def __init__(self, n_input, n_hidden, n_output):
 
         # Weights for inputs to hidden layer
         self.w1 = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
@@ -123,6 +149,7 @@ class NN:
         return o
     
 net = NN(2,1,1)
+out = net.forward(x)
       </code>
       </pre>
     </div>
@@ -131,13 +158,9 @@ net = NN(2,1,1)
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
-      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
+      <span class="example"><a href="/book/ml/Pytorch/1c-2inputs-1output.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
-#        nn.Linear(input,neurons)    
-linear = nn.Linear(2, 1)
-linear.weight
-
 class Network(nn.Module):
     def __init__(self):
         super().__init__()
@@ -150,16 +173,26 @@ class Network(nn.Module):
         return o
 
 net = Network()
+out = net(x)
+#or 
+#out = net.forward(x)
       </code>
       </pre>
     </div>
     <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
+      <span class="example"><a href="/book/ml/Pytorch/1d-2inputs-1output.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
+#                   nn.Linear(input,neurons)      
+
 net = nn.Sequential(nn.Linear(2, 1),
                     nn.Sigmoid(),
                    )
+
+out = net(x)
+#or 
+#out = net.forward(x)
       </code>
       </pre>
     </div>
@@ -184,14 +217,9 @@ net = nn.Sequential(nn.Linear(2, 1),
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Explicit</p>
-      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
+      <span class="example"><a href="/book/ml/Pytorch/2a-2inputs-2outputs.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
-#features
-x = torch.from_numpy(data[:, [0,1]]).double()
-#target/labels
-y = torch.from_numpy(data[:, [2,3]]).double()
-
 # Define the size of each layer in our network
 n_input = 2    # Number of input units, must match number of input features
 n_hidden = 2   # Number of hidden units 
@@ -202,26 +230,19 @@ w = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
 
 # and bias terms for hidden and output layers
 b = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
+
+out = torch.nn.Sigmoid()(torch.mm(x,w)+(b))
       </code>
       </pre>      
     </div>
     <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
-      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
+      <span class="example"><a href="/book/ml/Pytorch/2b-2inputs-2outputs.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
-#features
-x = torch.from_numpy(data[:, [0,1]]).double()
-#target/labels
-y = torch.from_numpy(data[:, [2,3]]).double()
-
 class NN:
     
-    def __init__(self, inputUnits, hiddenUnits, outputUnits):
-        # Define the size of each layer in our network
-        n_input = inputUnits     # Number of input units, must match number of input features
-        n_hidden = hiddenUnits   # Number of hidden units 
-        n_output = outputUnits   # Number of output units
+    def __init__(self, n_input, n_hidden, n_output):
 
         # Weights for inputs to hidden layer
         self.w1 = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
@@ -234,7 +255,7 @@ class NN:
         return o
     
 net = NN(2,2,2)
-print(net.forward(x)) 
+out = net.forward(x) 
       </code>
       </pre>      
     </div>
@@ -244,14 +265,9 @@ print(net.forward(x))
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
-      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
+      <span class="example"><a href="/book/ml/Pytorch/2c-2inputs-2outputs.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
-#features
-x = torch.from_numpy(data[:, [0,1]]).double()
-#target/labels
-y = torch.from_numpy(data[:, [2,3]]).double()
-
 class Network(nn.Module):
     def __init__(self):
         super().__init__()
@@ -264,18 +280,22 @@ class Network(nn.Module):
         return o
 
 net = Network()
+out = net(x) 
+#or
+#out = net.forward(x)
       </code>
       </pre>      
     </div>
     <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
-      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
+      <span class="example"><a href="/book/ml/Pytorch/2d-2inputs-2outputs.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 net = torch.nn.Sequential(
   torch.nn.Linear(2,2),
   torch.nn.Sigmoid()
-);
+)
+out = net(x)
       </code>
       </pre>      
     </div>
@@ -299,6 +319,7 @@ net = torch.nn.Sequential(
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Explicit</p>
+      <span class="example"><a href="/book/ml/Pytorch/3a-2inputs-3outputs.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 # Define the size of each layer in our network
@@ -313,23 +334,17 @@ w = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
 b = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
 
 out = torch.nn.Sigmoid()(torch.mm(x,w)+(b))
-print(w)
-print(b)
-print(out)
       </code>
       </pre>      
     </div>
     <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
+      <span class="example"><a href="/book/ml/Pytorch/3b-2inputs-3outputs.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 class NN:
     
-    def __init__(self, inputUnits, hiddenUnits, outputUnits):
-        # Define the size of each layer in our network
-        n_input = inputUnits     # Number of input units, must match number of input features
-        n_hidden = hiddenUnits   # Number of hidden units 
-        n_output = outputUnits   # Number of output units
+    def __init__(self, n_input, n_hidden, n_output):
 
         # Weights for inputs to hidden layer
         self.w1 = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
@@ -342,8 +357,6 @@ class NN:
         return o
     
 net = NN(2,3,3)
-print(net.w1)
-print(net.b1)
 print(net.forward(x)) 
       </code>
       </pre>      
@@ -354,12 +367,9 @@ print(net.forward(x))
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
+      <span class="example"><a href="/book/ml/Pytorch/3c-2inputs-3outputs.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
-#        nn.Linear(input,neurons)    
-linear = nn.Linear(2, 3)
-linear.weight
-
 class Network(nn.Module):
     def __init__(self):
         super().__init__()
@@ -372,22 +382,22 @@ class Network(nn.Module):
         return o
 
 net = Network()
-print(net)   
-print(net.linear.weight.data)
-print(net.linear.bias.data)
-print(net.forward(x))  
+net.forward(x)  
       </code>
       </pre>      
     </div>
 
     <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
+      <span class="example"><a href="/book/ml/Pytorch/3d-2inputs-3outputs.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 net = torch.nn.Sequential(
   torch.nn.Linear(2,3),
   torch.nn.Sigmoid()
   );
+
+out = net(x)
       </code>
       </pre>      
     </div>
@@ -411,6 +421,7 @@ net = torch.nn.Sequential(
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Explicit</p>
+      <span class="example"><a href="/book/ml/Pytorch/4a-3inputs-2output.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 # Define the size of each layer in our network
@@ -425,23 +436,17 @@ w = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
 b = torch.randn(1, n_hidden, dtype=torch.double, requires_grad=True)
 
 out = torch.nn.Sigmoid()(torch.mm(x,w)+(b))
-print(w)
-print(b)
-print(out)
       </code>
       </pre>      
     </div>
     <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
+      <span class="example"><a href="/book/ml/Pytorch/4b-3inputs-2outputs.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 class NN:
     
-    def __init__(self, inputUnits, hiddenUnits, outputUnits):
-        # Define the size of each layer in our network
-        n_input = inputUnits     # Number of input units, must match number of input features
-        n_hidden = hiddenUnits   # Number of hidden units 
-        n_output = outputUnits   # Number of output units
+    def __init__(self, n_input, n_hidden, n_output):
 
         # Weights for inputs to hidden layer
         self.w1 = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
@@ -454,9 +459,7 @@ class NN:
         return o
     
 net = NN(3,2,2)
-print(net.w1)
-print(net.b1)
-print(net.forward(x)) 
+out = net.forward(x) 
       </code>
       </pre>      
     </div>
@@ -466,12 +469,9 @@ print(net.forward(x))
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
+      <span class="example"><a href="/book/ml/Pytorch/4c-3inputs-2-outpus.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
-#        nn.Linear(input,neurons)    
-linear = nn.Linear(3, 2)
-linear.weight
-
 class Network(nn.Module):
     def __init__(self):
         super().__init__()
@@ -484,21 +484,23 @@ class Network(nn.Module):
         return o
 
 net = Network()
-print(net)   
-print(net.linear.weight.data)
-print(net.linear.bias.data)
-print(net.forward(x))  
+out = net(x)
+#or
+#out = net.forward(x)  
       </code>
       </pre>      
     </div>
     <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
+      <span class="example"><a href="/book/ml/Pytorch/4d-3inputs-2outputs.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 net = torch.nn.Sequential(
   torch.nn.Linear(3,2),
   torch.nn.Sigmoid()
   );
+
+out = net(x)
       </code>
       </pre>      
     </div>
@@ -522,6 +524,7 @@ net = torch.nn.Sequential(
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Explicit</p>
+      <span class="example"><a href="/book/ml/Pytorch/5a-2in-2-1-n-1out.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 # Define the size of each layer in our network
@@ -540,26 +543,16 @@ b2 = torch.randn(1, n_output, dtype=torch.double, requires_grad=True)
 
 h = activation(torch.mm(x,w1) + b1)
 output = activation(torch.mm(h,w2) + b2)
-
-print(x)
-print(w1)
-print(b1)
-print(w2)
-print(b2)
-print(output)
       </code>
       </pre>      
     </div>
     <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
+      <span class="example"><a href="/book/ml/Pytorch/5b-2in-2-1-n-1out.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 class NN():    
-    def __init__(self, inputUnits, hiddenUnits, outputUnits):
-        # Define the size of each layer in our network
-        n_input = 2    # Number of input units, must match number of input features
-        n_hidden = 2   # Number of hidden units 
-        n_output = 1   # Number of output units
+    def __init__(self, n_input, n_hidden, n_output):
 
         # Weights for inputs to hidden layer
         self.w1 = torch.randn(n_input, n_hidden, dtype=torch.double, requires_grad=True)
@@ -574,15 +567,11 @@ class NN():
         
     def forward(self,x):        
         o = activation(torch.mm(x,self.w1) + self.b1)
-        o = activation(torch.mm(o,self.w2) + self.b2)        
+        o = activation(torch.mm(o,self.w2) + self.b2)            
         return o
         
 net = NN(2,2,1)
-print(net.w1)
-print(net.b1)
-print(net.w2)
-print(net.b2)
-print(net.forward(x))         
+out = net.forward(x)         
       </code>
       </pre>      
     </div>
@@ -592,6 +581,7 @@ print(net.forward(x))
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
+      <span class="example"><a href="/book/ml/Pytorch/5c-2in-2-1-n-1out.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 class Network(nn.Module):
@@ -608,18 +598,13 @@ class Network(nn.Module):
         return o
 
 net = Network()
-print(net)   
-print(x)
-print(net.linear1.weight.data)
-print(net.linear1.bias.data)
-print(net.linear2.weight.data)
-print(net.linear2.bias.data)
-print(net.forward(x))  
+out = net.forward(x)  
       </code>
       </pre>      
     </div>
     <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
+      <span class="example"><a href="/book/ml/Pytorch/5d-2in-2-1-n-1out.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 net = torch.nn.Sequential(
@@ -628,6 +613,7 @@ net = torch.nn.Sequential(
   torch.nn.Linear(2,1),
   torch.nn.Sigmoid()
   );
+out = net(x)  
       </code>
       </pre>      
     </div>
@@ -651,6 +637,7 @@ net = torch.nn.Sequential(
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Explicit</p>
+      <span class="example"><a href="/book/ml/Pytorch/6a-3in-3-1-n-1out.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 # Define the size of each layer in our network
@@ -674,6 +661,7 @@ output = activation(torch.mm(h,w2) + b2)
     </div>
     <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
+      <span class="example"><a href="/book/ml/Pytorch/6b-3in-3-1-n-1out.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 class NN():    
@@ -706,6 +694,7 @@ out = net.forward(x)
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
+      <span class="example"><a href="/book/ml/Pytorch/6c-3in-3-1-n-1out.html" target="_blank">see example</a></span>
       <pre class="prettyprint">
       <code>
 class Network(nn.Module):
@@ -728,6 +717,7 @@ out = net.forward(x)
     </div>
     <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
+      <!--<span class="example"><a href="/book/ml/Pytorch/6d-3in-3-1-n-1out.html" target="_blank">see example</a></span>-->
       <pre class="prettyprint">
       <code>
 net = torch.nn.Sequential(
@@ -759,6 +749,7 @@ net = torch.nn.Sequential(
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Explicit</p>
+      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
       <pre class="prettyprint">
       <code>
 # Define the size of each network layer
@@ -785,6 +776,7 @@ out = o
     </div>
     <div class="col-md-6 cell">
       <p class="label">Class+Explicit</p>
+      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
       <pre class="prettyprint">
       <code>
 class NN:
@@ -820,6 +812,7 @@ out = net.forward(x)
   <div class="row">
     <div class="col-md-6 cell">
       <p class="label">Class+Linear</p>
+      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
       <pre class="prettyprint">
       <code>
 class Network(nn.Module):
@@ -842,6 +835,7 @@ out = net(x)
     </div>
     <div class="col-md-6 cell">
       <p class="label">Sequential+Linear</p>
+      <!--<span class="example"><a href="#" target="_blank">see example</a></span>-->
       <pre class="prettyprint">
       <code>
 net = torch.nn.Sequential(
@@ -858,8 +852,10 @@ net = torch.nn.Sequential(
   </div>
   <!-- end code -->
 
+<br>
 <p>Reference:</p>
 <p>http://www.sharetechnote.com/html/Python_PyTorch_nn_Sequential_01.html</p>
+
 </div>
 
 <!-- endblockcontent -->
