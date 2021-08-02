@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <!--<link href="../../src/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
+
+  <!-- JavaScript Bundle with Popper -->
+  <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>-->
+
+  <!--Google Code Prettify-->
+  <!--https://w3bits.com/google-code-prettify/-->
+  <!--<link rel="stylesheet" href="../../src/google-code-prettify/prettify.css" />-->
+
+
+ <!--
+	 https://codepen.io/josdea/pen/rLOJxL
+  -->	 
+
+  <script type="text/x-mathjax-config">
+         MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX", "output/HTML-CSS"], tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], displayMath: [ ['$$','$$'], ["\\[","\\]"] ], processEscapes: true }, "HTML-CSS": { availableFonts: ["TeX"] } });
+      </script>
+
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+<!--
+The scripts in this file allow math formulas to be written anywhere within the HTML code.  To start a formula you use either a dollar sign \$ or you can use a slash an an open parentheses "/(".  To end the inline math, you have another dollar sign or a back slash and a closing parentheses.  Enclosing in double dollar signs put the math on its own line.  Or you can use the backslash and a hard bracket "\[".
+
+If you need to actually use a regular dollar sign in the text, then you need to 'escape' it so the page doesn't think its the start of math.  In order to escape it you use a backslash before the dollar sign.  "\\$"	
+-->	
+
+
+
+<style>
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+</style>
+
+ <!-- blocktags -->
+
+  <meta name="author" content="Mihai Corciu">
+  <meta name="description" content="Data Science with Python" />
+  <meta name="keywords" content="backpropagation, gradients">
+
+  <title>Backpropagation-Gradients</title>
+
+<!-- endblocktags -->  
+</head>
+
+<!-- blockcontent -->
+{% verbatim %}
+
+<div class="container">
+
+<h1 style="text-align: center;"><b>Backpropagation -  Gradients computation<b></h1>
+
+<br><br>
+
+<img src="logistic_regression/net3.png" alt="nn image - one neuron"i class="center">
+
+<p>
+$$\frac{dLoss}{{dw}_{1}}=\frac{dLoss}{d\hat{y}} \cdot \frac{d\hat{y}}{dz} \cdot \frac{dz}{dw1}$$
+$$\frac{dLoss}{{dw}_{2}}=\frac{dLoss}{d\hat{y}} \cdot \frac{d\hat{y}}{dz} \cdot \frac{dz}{dw2}$$
+$$\frac{dLoss}{{db}_{1}}=\frac{dLoss}{d\hat{y}} \cdot \frac{d\hat{y}}{dz} \cdot \frac{dz}{db}$$
+</p>
+
+<p>
+${ z }={ w }_{ 1 }{ x }_{ 1 }+{ w }_{ 2 }{ x }_{ 2 }+{ b }\\{ \hat{y} } =\sigma ({ z }) = \frac { 1 }{ 1+{ e }^{ -z } }\\Loss(Error function)=-y\cdot ln(\hat{y})-(1-y)\cdot ln(1-\hat{y})$</p>
+
+
+<p>$\hat{y}$ is the prediction and y is the target/label of each training data set.</p>
+<p>Loss(Error function) is the measure of network  efficacity (grade of similarity between prediction- $\hat{y}$ andy - target/label)</p>
+
+<br>
+
+<p>Entire Cost function (average of losses of all training sets): $= \frac{1}{n} \sum_{i=1}^n Loss = \overline {Loss} $, where n = nr of training samples </p>
+
+<br>
+
+<p>Necessary math preliminaries for gradients evaluation:</p>
+$$\frac { dLoss }{ { dw }_{ 1 } }, \frac { dLoss }{ { dw }_{ 2 } }, \frac { dLoss }{ { db } }$$
+
+<p>1)Derivative of sigmoid function:</p>
+<p>$\sigma '(x)=\frac { d }{ dx } \frac { 1 }{ 1+{ e }^{ -x } } =\frac { d }{ dx } { (1+{ e }^{ -x }) }^{ -1 }=-{ (1+{ e }^{ -x }) }^{ -2 }\cdot ({ -e }^{ -x })=\frac { { e }^{ -x } }{ { (1+{ e }^{ -x }) }^{ 2 } } =\frac { 1 }{ 1+{ e }^{ -x } } \cdot \frac { { e }^{ -x } }{ 1+{ e }^{ -x } } \Rightarrow \\ \sigma '(x)=\sigma (x)(1-\sigma (x))\\ $</p>
+
+<p>2)Chain rule:</p>
+
+<p>$(f(g(x)))'\quad =\quad f'(g(x))\cdot g'(x)$</p> 
+<p>$\frac { d }{ dx } f(g(x))=\frac { d\, f(g(x)) }{ d\, g(x) } \frac { d\, g(x) }{ dx }$</p>
+<p>$which\quad could\quad be\quad simplified\quad to\quad the\quad following\quad conventional\quad notation$</p> 
+<p>$\frac { d }{ dx } f(g(x))=\frac { df }{ dg } \frac { dg }{ dx }$</p> 
+<p>$or$</p>
+<p>$\frac { d }{ dx } (f\circ g)(x)=\frac { df }{ dg } \frac { dg }{ dx }$</p> 
+<p>$and\quad generalized:$</p> 
+<p>$\frac { d }{ dx } (f\circ g\circ h\circ i...)(x)=\frac { df }{ dg } \frac { dg }{ dh } \frac { dh }{ di } \frac { di }{ ... } ...\frac { ... }{ dx }$</p> 
+
+<p>Gradients calculations</p>
+
+<p>$\frac{dLoss}{d\hat{y}}=-\frac{d\,(y\ln(\hat{y}))}{d\hat{y}} -\frac{d\,((1-y)\ln(1-\hat{y}) )}{d\hat{y}}=$</p>
+<p>$=-y\frac{d}{d\hat{y}}\ln{\hat{y}}-(1-y)\frac{d}{d\hat{y}}\ln{(1-\hat{y})}=$</p>
+<p>$=-y\frac{1}{\hat{y}}-(1-y)\frac{1}{1-\hat(y)}\frac{d}{d\hat{y}}(-\hat{y})=$</p>
+<p>$=-\frac{y}{\hat{y}}+\frac{1-y}{1-\hat{y}}$</p>
+<p></p>
+<p>$\frac{d\,\hat{y}}{dz}=\frac{d\,\sigma(z)}{dz}=\sigma(z)(1-\sigma(z))=\hat{y}(1-\hat{y})$</p>
+<p>$\frac{dz}{dw1}=\frac{d}{dw1}(w_{1}x_{1}+w_{2}x_{2}+b)=x_{1}\frac{d}{dw1}w_{1}+0+0=x_{1}$</p>
+<p>So:</p>
+<p>$\frac{dLoss}{{dw}_{1}}=\frac{dLoss}{d\hat{y}} \cdot \frac{d\hat{y}}{dz} \cdot \frac{dz}{dw1}=(-\frac{y}{\hat{y}}+\frac{1-y}{1-\hat{y}}) \cdot \hat{y}(1-\hat{y}) \cdot x_{1}$</p>
+<p>$=(\hat{y}-y)\cdot x_{1}$</p>
+<p>Similarly:</p>
+<p>$\frac{dLoss}{{dw}_{2}}=(\hat{y}-y)\cdot x_{2}$</p>
+<p>$\frac{dLoss}{{db}}=(\hat{y}-y)$</p>
+
+
+<p>Weight adjusting(optimization algorithm):</p>
+<p>$dw_{1}=\frac{ dLoss}{dw1}=(\hat{y}-y)x_{1}$</p>
+<p>$dw_{2}=\frac{ dLoss}{dw2}=(\hat{y}-y)x_{2}$</p>
+<p>$db=\frac{ dLoss }{db}=(\hat{y}-y)$</p>
+<br>
+<p>We are using the mean(average $\overline {dw}$) of dw for all training sets:</p>
+<p>$w_{1}=w_{1}-alpha\cdot \overline {dw_{1}} $</p>
+<p>$w_{2}=w_{2}-alpha\cdot \overline {dw_{2}} $</p>
+<p>$b=b-alpha\cdot \overline {db} $</p>
+<p>where: alpha = learn rate</p>
+
+
+</div>
+
+{% endverbatim %}
+<!-- endblockcontent -->
+
+<!--
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+-->
+
+<!--
+<script src="../../src/google-code-prettify/prettify.js"></script>
+<script>
+  window.onload = (function(){ prettyPrint(); });
+</script>
+-->
+
+</body>
+</html>
+	
